@@ -913,90 +913,149 @@
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
     <table id="229" parent="2" name="cards"/>
-    <table id="230" parent="2" name="orders"/>
-    <column id="231" parent="229" name="ID">
+    <table id="230" parent="2" name="migration_versions">
+      <Collation>utf8mb4_unicode_ci</Collation>
+    </table>
+    <table id="231" parent="2" name="orders"/>
+    <table id="232" parent="2" name="test_table"/>
+    <column id="233" parent="229" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="229" name="PAD">
+    <column id="234" parent="229" name="PAD">
       <Position>2</Position>
       <DataType>varchar(19)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="233" parent="229" name="CARDHOLDER">
+    <column id="235" parent="229" name="CARDHOLDER">
       <Position>3</Position>
       <DataType>varchar(27)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="234" parent="229" name="EXP_MONTH">
+    <column id="236" parent="229" name="EXP_MONTH">
       <Position>4</Position>
       <DataType>varchar(2)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="235" parent="229" name="EXP_YEAR">
+    <column id="237" parent="229" name="EXP_YEAR">
       <Position>5</Position>
-      <DataType>varchar(2)|0s</DataType>
+      <DataType>varchar(4)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="236" parent="229" name="cards_PAD_uindex">
+    <index id="238" parent="229" name="cards_PAD_uindex">
       <ColNames>PAD</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="237" parent="229" name="PRIMARY">
+    <key id="239" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="238" parent="229" name="cards_PAD_uindex">
+    <key id="240" parent="229" name="cards_PAD_uindex">
       <ColNames>PAD</ColNames>
       <UnderlyingIndexName>cards_PAD_uindex</UnderlyingIndexName>
     </key>
-    <column id="239" parent="230" name="ID">
+    <column id="241" parent="230" name="version">
+      <Position>1</Position>
+      <DataType>varchar(14)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="242" parent="230" name="executed_at">
+      <Position>2</Position>
+      <Comment>(DC2Type:datetime_immutable)</Comment>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="243" parent="230" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>version</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="244" parent="231" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="230" name="COST">
+    <column id="245" parent="231" name="CREATED_DATE">
       <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="246" parent="231" name="COST">
+      <Position>3</Position>
+      <DataType>decimal(9,2 digit)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="230" name="CURRENCY">
-      <Position>3</Position>
+    <column id="247" parent="231" name="CURRENCY">
+      <Position>4</Position>
       <DataType>varchar(3)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="230" name="CARD_ID">
-      <Position>4</Position>
+    <column id="248" parent="231" name="CARD_ID">
+      <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="243" parent="230" name="orders_cards__fk">
+    <column id="249" parent="231" name="COMMENT">
+      <Position>6</Position>
+      <DataType>varchar(200)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="250" parent="231" name="orders_cards__fk">
       <ColNames>CARD_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="244" parent="230" name="PRIMARY">
+    <key id="251" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="245" parent="230" name="orders_cards__fk">
+    <foreign-key id="252" parent="231" name="orders_cards__fk">
       <ColNames>CARD_ID</ColNames>
       <RefSchemaName>cc_payment</RefSchemaName>
       <RefTableName>cards</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
+    <column id="253" parent="232" name="ID">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="254" parent="232" name="COST">
+      <Position>2</Position>
+      <DataType>decimal(9,2 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="255" parent="232" name="CURRENCY">
+      <Position>3</Position>
+      <DataType>varchar(3)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="256" parent="232" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

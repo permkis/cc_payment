@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/style.css">
+{% endblock %}
+{% block body %}
+    <div class="card text-center" style="width: 36rem;margin:0 auto;">
+        <h5 class="card-header">Оплата заказа</h5>
+        {{ form_start(form) }}
+        <div class="card-body">
+            <div class="row justify-content-md-center">
+                {{ form_widget(form.cost,{'attr':{
+                    'placeholder': 'Сумма',
+                    'class':'form-control mb-2 col-sm-3',
+                    'autocomplete':'off',
+                    'maxlength':'11'
+                }}) }}
+                {{ form_widget(form.currency,{'separator':none,'attr':{
+                    'class':'form-control mb-2 col-sm-2'
+                }}) }}
+            </div>
+            <div id="cards" class="cards">
+                <div id="front">
+                    <img src="" alt="" id="brand-logo">
+                    <div id="front-fields">
+                        {{ form_widget(form.pad, {'attr': {
+                            'placeholder': '0000 0000 0000 0000',
+                            'class':'field form-control form-control-lg',
+                            'autocomplete':'off',
+                            'maxlength':'19'
+                        }}) }}
+                        <label class="label">Valid thru</label>
+                        {{ form_widget(form.expMonth, {'attr': {
+                            'placeholder': 'MM',
+                            'class':'field expired form-control',
+                            'autocomplete':'off',
+                            'maxlength':'2'
+                        }}) }}
+                        {{ form_widget(form.expYear, {'attr': {
+                            'placeholder': 'YY',
+                            'class':'field expired form-control',
+                            'autocomplete':'off',
+                            'maxlength':'4'
+                        }}) }}
+                        {{ form_widget(form.cardholder, {'attr': {
+                            'placeholder': 'CARDHOLDER NAME',
+                            'class':'field cardholder form-control',
+                            'autocomplete':'off',
+                            'maxlength':'27'
+                        }}) }}
+                    </div>
+                </div>
+                <div id="back">
+                    {{ form_widget(form.code, {'attr': {
+                        'placeholder': '',
+                        'class':'field code form-control',
+                        'autocomplete':'off',
+                        'maxlength':'3'
+                    }}) }}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <h6>Комментарий к заказу</h6>
+            <div class="mb-2">
+                {{ form_widget(form.comment, {'attr': {
+                    'placeholder': '',
+                    'class':'form-control',
+                    'maxlength':'200'
+                }}) }}
+            </div>
+            <div>{{ form_widget(form.save,{'attr':{'class':'btn btn-dark'}}) }}</div>
+        </div>
+        {{ form_end(form) }}
+
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-success alert-dismissible fade show">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('invalid-card') %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/jquery.mask.min.js"></script>
+    <script src="/card-info.js"></script>
+
+    <script>
+        CardInfo.setDefaultOptions({
+            brandsLogosPath: '/brands-logos/'
+        })
+
+        $(function() {
+
+        })
+    </script>
+{% endblock %}

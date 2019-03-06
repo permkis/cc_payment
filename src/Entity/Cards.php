@@ -83,7 +83,7 @@ class Cards
      */
     public function setCardholder(string $cardholder): void
     {
-        $this->cardholder = $cardholder;
+        $this->cardholder = strtoupper($cardholder);
     }
 
     /**
